@@ -10,6 +10,8 @@ import './componants/Pokemon.css'
 import './componants/pvbarre.css'
 import Image1 from './assets/img/pikachu.png'
 import Image2 from './assets/img/dracaufeu.png'
+import Body from './composants/Body'
+
 
 const pokemonData = [
   { id: 1, photo: Image1, nom: 'Pikachu', pv: 100, pvMax: 100 },
@@ -39,6 +41,8 @@ function App() {
     );
   };
   return (
+    <>
+    <Body />
     <div className="app">
       <h1>Combat de Pokémons</h1>
       <div className="combat">
@@ -59,7 +63,9 @@ function App() {
         ))}
       </div>
     </div>
+</>
   );
-}
+
+
 
 export default App
