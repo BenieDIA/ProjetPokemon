@@ -1,0 +1,12 @@
+.pv-barre {
+    width: 100%;
+    background-color: #eee;
+    border-radius: 12px;
+    overflow: hidden;
+}
+
+.pv-barre-remplissage {
+    height: 100%;
+    transition: width 0.4s;
+}
+    
