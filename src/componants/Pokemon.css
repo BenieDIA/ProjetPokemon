@@ -1,9 +1,12 @@
 .pokemon {
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: none;
+    color: white;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    border-radius: 20px;
     padding: 16px;
     margin: 16px;
     text-align: center;
     width: 200px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    background: linear-gradient(to right, #d76f1b, #be773d);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     }

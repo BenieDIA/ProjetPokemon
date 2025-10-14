@@ -26,9 +26,9 @@ function App() {
   const [pokemons, setPokemons] = useState(pokemonData);
 
   const attaques = [
-    { nom: 'Attaque 1', degats: 10 },
-    { nom: 'Attaque 2', degats: 20 },
-    { nom: 'Attaque 3', degats: 30 },
+    { nom: '🔥', degats: 10 },
+    { nom: '⚡', degats: 20 },
+    { nom: '👊', degats: 30 },
   ];  
   const attaquer = (attaquantId, defenseurId, degats) => {
     setPokemons((prevPokemons) =>
