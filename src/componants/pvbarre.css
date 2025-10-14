@@ -1,0 +1,26 @@
+.pv-barre {
+    width: 200px;
+    height: 20px;
+    border: 1px solid #000;
+    background-color: #ccc;
+    position: relative;
+    margin-top: 10px;
+    }
+.pv-barre-inner {
+    height: 100%;
+    background-color: green;
+    transition: width 0.4s;
+}
+.pv-barre-inner.low {
+    background-color: red;
+}
+.pv-barre-text {
+    position: absolute;
+    width: 100%;
+    text-align: center;
+    top: 0;
+    left: 0;
+    font-size: 14px;
+    line-height: 20px;
+    color: #000;
+}
