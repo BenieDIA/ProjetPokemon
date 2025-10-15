@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import './App.css'
 import Pokemon from './componants/Pokemon'
 import Boutton from './componants/Boutton'
@@ -7,63 +7,108 @@ import './componants/Boutton.css'
 import './componants/Pokemon.css'
 import './componants/pvbarre.css'
 import Image1 from './assets/img/pikachu.png'
-import Image2 from './assets/img/dracaufeu.png'
+import Image2 from './assets/img/dracaufeunormal.png'
 import Body from './composants/Body'
 import Imgpokemon from './assets/img/profile-pic2.png'
+import Image1Attaque from './assets/img/pikaaattque.png' 
+import Image2Attaque from './assets/img/Dracaufeuattaque.png' 
 
 const pokemonData = [
-  { id: 1, photo: Image1, nom: 'Pikachu', pv: 70, pvMax: 100 },
-  { id: 2, photo: Image2, nom: 'Dracaufeu', pv: 90, pvMax: 120 },
+
+  { id: 1, photo: Image1, photoAttaque: Image1Attaque, nom: 'Pikachu', pv: 100, pvMax: 100 },
+  { id: 2, photo: Image2, photoAttaque: Image2Attaque, nom: 'Dracaufeu', pv: 120, pvMax: 120 },
 ];
+
+
+const genererDegatsAleatoires = (min, max) => {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+};
 
 function App() {
 
-  // État des Pokémon
+
   const [pokemons, setPokemons] = useState(pokemonData);
-  const [tourActifId, setTourActifId] = useState(pokemonData[0].id); 
+  const [tourActifId, setTourActifId] = useState(pokemonData[0].id);
+  const [vainqueur, setVainqueur] = useState(null);
+  const [attaquantActifId, setAttaquantActifId] = useState(null);
 
   const attaques = [
-    { nom: '🔥', degats: 10 },
-    { nom: '⚡', degats: 20 },
-    { nom: '👊', degats: 30 },
+    // Liste des attaques avec des dégâts aléatoires (min et max)
+    { nom: '🔥', min: 10, max: 20 },
+    { nom: '⚡', min: 20, max: 35 },
+    { nom: '👊', min: 30, max: 50 },
   ];
   const soins = [
     { nom: '💖', soin: 10 },
     { nom: '💚', soin: 15 },
   ];
   
+  // Utilisation de useEffect pour vérifier la victoire à chaque changement de PV
+  useEffect(() => {
+    const pokemon1 = pokemons.find(p => p.id === 1);
+    const pokemon2 = pokemons.find(p => p.id === 2);
+    
+    if (pokemon1 && pokemon2) {
+        // Détecte si Pikachu est KO et Dracaufeu vivant
+        if (pokemon1.pv <= 0 && pokemon2.pv > 0) {
+            setVainqueur(pokemon2);
+        // Détecte si Dracaufeu est KO et Pikachu vivant
+        } else if (pokemon2.pv <= 0 && pokemon1.pv > 0) {
+            setVainqueur(pokemon1);
+        }
+    }
+  }, [pokemons]);
+
+  // Fonction de redémarrage du jeu
+  const recommencerLeJeu = () => {
+    // Réinitialiser les états à leurs valeurs initiales
+    setPokemons(pokemonData.map(p => ({...p}))); // Créer une nouvelle instance des données initiales
+    setTourActifId(pokemonData[0].id);
+    setVainqueur(null);
+    setAttaquantActifId(null);
+  }
 
   const passerLeTour = (ancienTourId) => {
-    // Trouve l'ID du Pokémon qui n'était PAS l'ancien actif
+    if (vainqueur) return;
     const prochainPokemon = pokemons.find((p) => p.id !== ancienTourId);
     if (prochainPokemon) {
         setTourActifId(prochainPokemon.id);
     }
   };
 
-  const attaquer = (attaquantId, defenseurId, degats) => {
+  const attaquer = (attaquantId, defenseurId, minDegats, maxDegats) => {
+    // Si un vainqueur est déjà déclaré ou l'attaquant KO, on ne fait rien
+    if (vainqueur || pokemons.find(p => p.id === attaquantId)?.pv <= 0) return;
+    
     // verification du tour
     if (attaquantId !== tourActifId) {
         alert("Ce n'est pas le tour de " + pokemons.find(p => p.id === attaquantId).nom + " !");
         return; 
     }
-
-    // attaque
+    
+  
+    setAttaquantActifId(attaquantId);
+    const degats = genererDegatsAleatoires(minDegats, maxDegats);
+ 
     setPokemons((prevPokemons) =>
       prevPokemons.map((pokemon) => {
         if (pokemon.id === defenseurId) {
+          // Limite les PV à 0
           return { ...pokemon, pv: Math.max(pokemon.pv - degats, 0) };
         }
         return pokemon;
       })
     );
     
-    // PASSAGE DU TOUR
-    passerLeTour(attaquantId);
+    setTimeout(() => {
+        setAttaquantActifId(null);
+        passerLeTour(attaquantId);
+    }, 500); 
   };
-//fonction de soin
+
+  //fonction de soin
   const soigner = (pokemonId, soin) => {
-    // verification du tour
+    if (vainqueur || pokemons.find(p => p.id === pokemonId)?.pv <= 0) return;
     if (pokemonId !== tourActifId) {
         alert("Ce n'est pas le tour de " + pokemons.find(p => p.id === pokemonId).nom + " !");
         return; 
@@ -72,13 +117,15 @@ function App() {
     setPokemons((prevPokemons) =>
       prevPokemons.map((pokemon) => {
         if (pokemon.id === pokemonId) {
+          // Limite les PV au maximum (pvMax)
           const nouveauxPv = Math.min(pokemon.pv + soin, pokemon.pvMax);
           return { ...pokemon, pv: nouveauxPv };
         }
         return pokemon;
       })
     );
-    passerLeTour(pokemonId);
+
+    passerLeTour(pokemonId); 
   };
   
   return (
@@ -86,29 +133,61 @@ function App() {
     <Body />
     <div className="app">
       <img src={Imgpokemon} alt="Profil Pokémon" className="profile-img" />
-      <h2 className="tour-info">
-          C'est au tour de : 
-          <span style={{ color: tourActifId === 1 ? 'blue' : 'red' }}>
-              {pokemons.find(p => p.id === tourActifId)?.nom}
-          </span>
-      </h2>
+      
+      {/* Affichage conditionnel du vainqueur  */}
+      {vainqueur ? (
+          <div className="vainqueur-message">
+              <h2 className="tour-info" style={{ color: 'green', fontSize: '1.5em' }}>
+                  🎉 {vainqueur.nom} a gagné le combat ! 🎉
+              </h2>
+              {/* Bouton Rejouer  */}
+              <Boutton
+                attaque={{ nom: 'REJOUER', degats: 'GO !' }}
+                onClick={recommencerLeJeu}
+                disabled={false} 
+              />
+          </div>
+      ) : (
+          <h2 className="tour-info">
+              C'est au tour de : 
+              <span style={{ color: tourActifId === 1 ? 'blue' : 'red' }}>
+                  {pokemons.find(p => p.id === tourActifId)?.nom}
+              </span>
+          </h2>
+      )}
       
       <div className="combat">
+  
         {pokemons.map((pokemon) => {
-          const estTourActif = pokemon.id === tourActifId;
+          const estTourActif = pokemon.id === tourActifId && !vainqueur;
+          const estKO = pokemon.pv <= 0;
+          const imageAffichee = (pokemon.id === attaquantActifId) 
+                              ? pokemon.photoAttaque
+                              : pokemon.photo;
           
           return (
-            <div key={pokemon.id} className={`pokemon-container ${!estTourActif ? 'inactif' : ''}`}>
-              <img src={pokemon.photo} alt={pokemon.nom} className="pokemon-photo" />
+            <div 
+                key={pokemon.id} 
+                className={`pokemon-container ${!estTourActif && !vainqueur ? 'inactif' : ''} ${estKO ? 'ko' : ''}`}
+            >
+
+              <img src={imageAffichee} alt={pokemon.nom} className="pokemon-photo" />
               <Pokemon pokemon={pokemon} />
+              
               <div className="attaques">
-             
                 {attaques.map((attaque, index) => (
                   <Boutton
                     key={index}
-                    attaque={attaque}
-                    onClick={() => attaquer(pokemon.id, pokemons.find((p) => p.id !== pokemon.id).id, attaque.degats)}
-                    disabled={!estTourActif} 
+                    // Affichage de l'intervalle de dégâts sur le bouton
+                    attaque={{ nom: attaque.nom, degats: `${attaque.min}-${attaque.max} DMG` }}
+                    onClick={() => attaquer(
+                        pokemon.id, 
+                        pokemons.find((p) => p.id !== pokemon.id).id, 
+                        attaque.min, 
+                        attaque.max
+                    )}
+                    // Désactivé si inactif, si jeu terminé, si KO, ou si un attaquant est déjà actif (pour l'animation)
+                    disabled={!estTourActif || vainqueur || estKO || attaquantActifId} 
                   />
                 ))}
               </div>
@@ -118,7 +197,7 @@ function App() {
                     key={index}
                     attaque={soin}
                     onClick={() => soigner(pokemon.id, soin.soin)}
-                    disabled={!estTourActif}
+                    disabled={!estTourActif || vainqueur || estKO || attaquantActifId}
                   />
                 ))}
               </div>
