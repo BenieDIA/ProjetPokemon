@@ -7,9 +7,15 @@
     text-align: center;
     text-decoration: none;
     display: inline-block;
-    font-size: 1.5rem;
+    font-size: 1rem;
     margin: 4px 2px;
     cursor: pointer;
     border-radius: 100%;
-    transition-duration: 0.4s;
+    transition: ease-in-out .3s;
+}
+.boutton:hover {
+    background: linear-gradient(to right, #d76f1b, #be773d);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    transition: .3s ease-in-out;
+    transform: scale(1.1);
 }

@@ -9,6 +9,7 @@ import './componants/pvbarre.css'
 import Image1 from './assets/img/pikachu.png'
 import Image2 from './assets/img/dracaufeu.png'
 import Body from './composants/Body'
+import Imgpokemon from './assets/img/profile-pic2.png'
 
 const pokemonData = [
   { id: 1, photo: Image1, nom: 'Pikachu', pv: 70, pvMax: 100 },
@@ -84,7 +85,7 @@ function App() {
     <>
     <Body />
     <div className="app">
-      <h1>Combat de Pokémons</h1>
+      <img src={Imgpokemon} alt="Profil Pokémon" className="profile-img" />
       <h2 className="tour-info">
           C'est au tour de : 
           <span style={{ color: tourActifId === 1 ? 'blue' : 'red' }}>

@@ -5,8 +5,8 @@
   text-align: center;
 }
 .pokemon-container{
-  width: 400px;
-  height: 400px;
+  width: 450px;
+  height: 320px;
   display: flex;
   padding: 10px;
   flex-direction: column;
@@ -15,9 +15,14 @@
   border: solid 4px #d76f1b;
   border-radius: 50px;
 }
+.tour-info{
+  font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  color: #f7e705;
+  -webkit-text-stroke: 1px rgb(18, 8, 157); 
+}
 .pokemon-photo{
-  width: 200px;
-  height: 200px;  
+  width: 150px;
+  height: 150px;  
 }
 .combat{
   display: flex;
@@ -28,6 +33,11 @@
   justify-content: center;
   gap: 20px;
 }
+
+.profile-img{
+  width:300px;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
