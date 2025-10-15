@@ -16,7 +16,7 @@ import Image2Attaque from './assets/img/Dracaufeuattaque.png'
 const pokemonData = [
 
   { id: 1, photo: Image1, photoAttaque: Image1Attaque, nom: 'Pikachu', pv: 100, pvMax: 100 },
-  { id: 2, photo: Image2, photoAttaque: Image2Attaque, nom: 'Dracaufeu', pv: 120, pvMax: 120 },
+  { id: 2, photo: Image2, photoAttaque: Image2Attaque, nom: 'Dracaufeu', pv: 100, pvMax: 100 },
 ];
 
 
