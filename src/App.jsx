@@ -103,7 +103,7 @@ function App() {
     setTimeout(() => {
         setAttaquantActifId(null);
         passerLeTour(attaquantId);
-    }, 500); 
+    }, 1500); 
   };
 
   //fonction de soin
@@ -131,6 +131,7 @@ function App() {
   return (
     <>
     <Body />
+    <audio src="/music.mp3" autoPlay loop />
     <div className="app">
       <img src={Imgpokemon} alt="Profil Pokémon" className="profile-img" />
       
@@ -171,7 +172,12 @@ function App() {
                 className={`pokemon-container ${!estTourActif && !vainqueur ? 'inactif' : ''} ${estKO ? 'ko' : ''}`}
             >
 
-              <img src={imageAffichee} alt={pokemon.nom} className="pokemon-photo" />
+              <img 
+                key={imageAffichee}
+                src={imageAffichee} 
+                alt={pokemon.nom} 
+                className="pokemon-photo"
+              />
               <Pokemon pokemon={pokemon} />
               
               <div className="attaques">
