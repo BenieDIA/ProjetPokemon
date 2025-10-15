@@ -36,6 +36,18 @@
 
 .profile-img{
   width:300px;
+  animation: zoomLoop 2.5s ease-in-out infinite;
+}
+@keyframes zoomLoop {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15); /* agrandissement */
+  }
+  100% {
+    transform: scale(1); /* retour normal */
+  }
 }
 
 .logo {
