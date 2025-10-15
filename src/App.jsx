@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
 import './App.css'
 import Pokemon from './componants/Pokemon'
 import Boutton from './componants/Boutton'
@@ -26,6 +26,7 @@ const genererDegatsAleatoires = (min, max) => {
 
 function App() {
 
+  const audioRef = useRef(null);
 
   const [pokemons, setPokemons] = useState(pokemonData);
   const [tourActifId, setTourActifId] = useState(pokemonData[0].id);
@@ -58,6 +59,18 @@ function App() {
         }
     }
   }, [pokemons]);
+
+  // Démarre la musique après la première interaction utilisateur
+  useEffect(() => {
+    const playAudio = () => {
+      if (audioRef.current) {
+        audioRef.current.play();
+      }
+      window.removeEventListener('click', playAudio);
+    };
+    window.addEventListener('click', playAudio);
+    return () => window.removeEventListener('click', playAudio);
+  }, []);
 
   // Fonction de redémarrage du jeu
   const recommencerLeJeu = () => {
@@ -131,7 +144,7 @@ function App() {
   return (
     <>
     <Body />
-    <audio src="/music.mp3" autoPlay loop />
+    <audio ref={audioRef} src="/music.mp3" autoPlay loop />
     <div className="app">
       <img src={Imgpokemon} alt="Profil Pokémon" className="profile-img" />
       
