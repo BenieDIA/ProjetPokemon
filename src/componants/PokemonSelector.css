@@ -1,0 +1,100 @@
+/* ========================================= */
+/* NOUVEAUX STYLES : ÉCRAN DE SÉLECTION */
+/* ========================================= */
+
+.selection-view {
+    /* Utilise l'image de fond du body pour la cohérence */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding-top: 50px;
+    text-align: center;
+    /* Utilise la même police que vos autres éléments */
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+.selection-view h1 {
+    color: #f7e705; /* Couleur du tour-info pour le contraste */
+    -webkit-text-stroke: 1px rgb(18, 8, 157);
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    margin-bottom: 30px;
+}
+
+.selection-view h2 {
+    /* Style pour le bandeau des Pokémon sélectionnés */
+    color: white;
+    font-size: 1.2em;
+    padding: 10px 20px;
+    margin: 30px 0;
+    /* Reprise du dégradé de la barre .pokemon pour l'harmonie */
+    background: linear-gradient(to right, #d76f1b, #be773d);
+    border: 3px solid #f7e705; /* Bordure jaune pour le contraste */
+    border-radius: 20px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+}
+
+.pokemon-list {
+    display: flex;
+    gap: 40px; 
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.pokemon-card {
+    /* S'aligne sur le style des conteneurs de combat */
+    width: 160px;
+    height: 200px;
+    background-color: rgba(0, 0, 0, 0.6); /* Fond semi-transparent */
+    border: 4px solid #be773d; /* Bordure inspirée de la couleur principale */
+    border-radius: 20px; /* Coins arrondis similaires à .pokemon */
+    padding: 10px;
+    cursor: pointer;
+    transition: transform 0.3s, box-shadow 0.3s, border-color 0.3s;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+    color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
+}
+
+.pokemon-card:hover {
+    transform: scale(1.05); 
+    /* Utilise le dégradé de hover du bouton */
+    border-color: #fb0303; 
+    box-shadow: 0 8px 16px rgba(251, 3, 3, 0.5);
+}
+
+.pokemon-card h3 {
+    margin: 5px 0;
+    color: white;
+    text-shadow: 1px 1px 2px black;
+}
+
+.pokemon-card p {
+    font-size: 0.9em;
+    color: #f7e705; /* Utilisation de la couleur jaune pour le texte secondaire */
+}
+
+.pokemon-card img {
+    width: 100px; 
+    height: auto;
+    /* Vous pouvez garder l'animation fade-in si vous l'aimez pour l'apparition */
+}
+
+/* Style spécifique pour les cartes sélectionnées */
+.pokemon-card.selected {
+    /* Utilise les couleurs de votre bouton actif pour indiquer la sélection */
+    background: linear-gradient(to right, #fb0303, #4f1212); 
+    border-color: #f7e705; /* Bordure jaune éclatant */
+    transform: scale(1.1); 
+    box-shadow: 0 0 25px rgba(247, 231, 5, 0.8); /* Ombre jaune lumineuse */
+}
+
+/* Style pour le bouton "COMMENCER LE COMBAT" (pour assurer qu'il est centré) */
+.selection-view .boutton-container {
+    margin-top: 40px;
+}
