@@ -37,11 +37,11 @@ function App() {
     // Liste des attaques avec des dégâts aléatoires (min et max)
     { nom: '🔥', min: 10, max: 20 },
     { nom: '⚡', min: 20, max: 35 },
-    { nom: '👊', min: 30, max: 50 },
+    { nom: '👊', min: 30, max: 40 },
   ];
   const soins = [
-    { nom: '💖', soin: 10 },
-    { nom: '💚', soin: 15 },
+    { nom: '💖', soin: 15 },
+    { nom: '💚', soin: 25 },
   ];
   
   // Utilisation de useEffect pour vérifier la victoire à chaque changement de PV
