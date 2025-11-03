@@ -22,17 +22,94 @@ import ImageReshiram from './assets/img/reshiram.png'
 import ImageReshiramAttaque from './assets/img/reshiramatk.png'
 
 
-// Liste complète des Pokémon disponibles
 const ALL_POKEMON_DATA = [
-  { id: 1, photo: Image1, photoAttaque: Image1Attaque, nom: 'Pikachu', pv: 100, pvMax: 100, energie: 100, energieMax: 100, couleur: 'blue' },
-  { id: 2, photo: Image2, photoAttaque: Image2Attaque, nom: 'Dracaufeu', pv: 100, pvMax: 100, energie: 100, energieMax: 100, couleur: 'red' },
-  { id: 3, photo: ImageMewtwo, photoAttaque: ImageMewtwoAttaque, nom: 'Mewtwo', pv: 100, pvMax: 100, energie: 100, energieMax: 100, couleur: 'purple' },
-  { id: 4, photo: Imagelucario, photoAttaque: ImagelucarioAttaque, nom: 'Lucario', pv: 100, pvMax: 100, energie: 100, energieMax: 100, couleur: 'blue' },
-  { id: 5, photo: ImageAmphinobi, photoAttaque: ImageAmphinobiAttaque, nom: 'Amphinobi', pv: 100, pvMax: 100, energie: 100, energieMax: 100, couleur: 'blue' },
-  { id: 6, photo: ImageReshiram, photoAttaque: ImageReshiramAttaque, nom: 'Reshiram', pv: 100, pvMax: 100, energie: 100, energieMax: 100, couleur: 'white' },
-
-
+  { 
+    id: 1, 
+    photo: Image1, 
+    photoAttaque: Image1Attaque, 
+    nom: 'Pikachu', 
+    pv: 100, pvMax: 100, 
+    energie: 100, energieMax: 100, 
+    couleur: 'blue',
+    attaques: [
+      { nom: 'Éclair ⚡', min: 20, max: 30, cout: 20 },
+      { nom: 'Queue de Fer 🦾', min: 15, max: 25, cout: 10 },
+      { nom: 'Tonnerre ⚡⚡', min: 35, max: 45, cout: 50 },
+    ]
+  },
+  { 
+    id: 2, 
+    photo: Image2, 
+    photoAttaque: Image2Attaque, 
+    nom: 'Dracaufeu', 
+    pv: 120, pvMax: 120, 
+    energie: 100, energieMax: 100, 
+    couleur: 'red',
+    attaques: [
+      { nom: 'Flamme 🔥', min: 25, max: 35, cout: 20 },
+      { nom: 'Lance-Flammes 🔥🔥', min: 35, max: 50, cout: 50 },
+      { nom: 'Morsure 🐉', min: 15, max: 25, cout: 10 },
+    ]
+  },
+  { 
+    id: 3, 
+    photo: ImageMewtwo, 
+    photoAttaque: ImageMewtwoAttaque, 
+    nom: 'Mewtwo', 
+    pv: 130, pvMax: 130, 
+    energie: 100, energieMax: 100, 
+    couleur: 'purple',
+    attaques: [
+      { nom: 'Psyko 🌀', min: 25, max: 40, cout: 25 },
+      { nom: 'Onde Mentale 🧠', min: 15, max: 25, cout: 10 },
+      { nom: 'Explosion Mentale 💥', min: 40, max: 60, cout: 50 },
+    ]
+  },
+  { 
+    id: 4, 
+    photo: Imagelucario, 
+    photoAttaque: ImagelucarioAttaque, 
+    nom: 'Lucario', 
+    pv: 110, pvMax: 110, 
+    energie: 100, energieMax: 100, 
+    couleur: 'blue',
+    attaques: [
+      { nom: 'Aurasphère 🔵', min: 20, max: 30, cout: 15 },
+      { nom: 'Poing Météore 👊', min: 25, max: 35, cout: 25 },
+      { nom: 'Force Intérieure 💫', min: 30, max: 45, cout: 30 },
+    ]
+  },
+  { 
+    id: 5, 
+    photo: ImageAmphinobi, 
+    photoAttaque: ImageAmphinobiAttaque, 
+    nom: 'Amphinobi', 
+    pv: 100, pvMax: 100, 
+    energie: 100, energieMax: 100, 
+    couleur: 'blue',
+    attaques: [
+      { nom: 'Shuriken d’eau 💧', min: 20, max: 25, cout: 15 },
+      { nom: 'Double Team 👥', min: 10, max: 20, cout: 10 },
+      { nom: 'Hydrocanon 💦', min: 35, max: 50, cout: 35 },
+    ]
+  },
+  { 
+    id: 6, 
+    photo: ImageReshiram, 
+    photoAttaque: ImageReshiramAttaque, 
+    nom: 'Reshiram', 
+    pv: 140, pvMax: 140, 
+    energie: 100, energieMax: 100, 
+    couleur: 'white',
+    attaques: [
+      { nom: 'Flamme Bleue 🔥💙', min: 30, max: 45, cout: 30 },
+      { nom: 'Crocs de Feu 🔥', min: 20, max: 35, cout: 20 },
+      { nom: 'Draco Souffle 🐉', min: 35, max: 50, cout: 40 },
+    ]
+  },
+  
 ];
+
 
 const genererDegatsAleatoires = (min, max) => {
   return Math.floor(Math.random() * (max - min + 1)) + min;
@@ -83,7 +160,7 @@ function App() {
     setView('combat');
   };
 
-  // --- VÉRIFICATION DE VICTOIRE ---
+  // VÉRIFICATION DE VICTOIRE
   useEffect(() => {
     if (view !== 'combat' || pokemons.length !== 2) return;
     const [p1, p2] = pokemons;
@@ -91,7 +168,7 @@ function App() {
     else if (p2.pv <= 0 && p1.pv > 0) setVainqueur(p1);
   }, [pokemons, view]);
 
-  // --- MUSIQUE ---
+  // MUSIQUE 
   useEffect(() => {
     const playAudio = () => {
       const audio = audioRef.current;
@@ -114,7 +191,7 @@ function App() {
     setView('selection');
   }
 
-  // --- PASSAGE DE TOUR + REGEN ENERGIE ---
+  // PASSAGE DE TOUR + REGEN ENERGIE
   const passerLeTour = (ancienTourId) => {
     if (vainqueur) return;
     const prochainPokemon = pokemons.find((p) => p.id !== ancienTourId);
@@ -130,7 +207,7 @@ function App() {
     }
   };
 
-  // --- ATTAQUER ---
+  //ATTAQUER 
   const attaquer = (attaquantId, defenseurId, minDegats, maxDegats, cout) => {
     if (vainqueur) return;
     const attaquant = pokemons.find(p => p.id === attaquantId);
@@ -190,7 +267,7 @@ function App() {
     passerLeTour(pokemonId);
   };
 
-  // --- RENDU SELECTION ---
+  // SELECTION
   if (view === 'selection') {
     return (
       <>
@@ -294,24 +371,25 @@ function App() {
                 <Pokemon pokemon={pokemon} />
                 <p>⚡ Énergie : {pokemon.energie}/{pokemon.energieMax}</p>
 
-                <div className="attaques">
-                  {attaques.map((attaque, index) => (
-                    <Boutton
-                      key={index}
-                      attaque={{ nom: attaque.nom, degats: `${attaque.min}-${attaque.max} DMG (${attaque.cout}⚡)` }}
-                      onClick={() =>
-                        attaquer(
-                          pokemon.id, 
-                          pokemons.find((p) => p.id !== pokemon.id).id, 
-                          attaque.min, 
-                          attaque.max,
-                          attaque.cout
-                        )
-                      }
-                      disabled={!estTourActif || vainqueur || estKO || attaquantActifId}
-                    />
-                  ))}
-                </div>
+             <div className="attaques">
+  {pokemon.attaques.map((attaque, index) => (
+    <Boutton
+      key={index}
+      attaque={{ nom: attaque.nom, degats: `${attaque.min}-${attaque.max} DMG (${attaque.cout}⚡)` }}
+      onClick={() =>
+        attaquer(
+          pokemon.id, 
+          pokemons.find((p) => p.id !== pokemon.id).id, 
+          attaque.min, 
+          attaque.max,
+          attaque.cout
+        )
+      }
+      disabled={!estTourActif || vainqueur || estKO || attaquantActifId}
+    />
+  ))}
+</div>
+
 
                 <div className="soins">
                   {soins.map((soin, index) => (

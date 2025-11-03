@@ -82,19 +82,19 @@
 .pokemon-card img {
     width: 100px; 
     height: auto;
-    /* Vous pouvez garder l'animation fade-in si vous l'aimez pour l'apparition */
+    
 }
 
-/* Style spécifique pour les cartes sélectionnées */
+
 .pokemon-card.selected {
-    /* Utilise les couleurs de votre bouton actif pour indiquer la sélection */
+   
     background: linear-gradient(to right, #fb0303, #4f1212); 
-    border-color: #f7e705; /* Bordure jaune éclatant */
+    border-color: #f7e705;
     transform: scale(1.1); 
-    box-shadow: 0 0 25px rgba(247, 231, 5, 0.8); /* Ombre jaune lumineuse */
+    box-shadow: 0 0 25px rgba(247, 231, 5, 0.8);
 }
 
-/* Style pour le bouton "COMMENCER LE COMBAT" (pour assurer qu'il est centré) */
+
 .selection-view .boutton-container {
     margin-top: 40px;
 }
